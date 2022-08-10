@@ -52,4 +52,10 @@ $ docker-compose up -d
 
 ### Deploy
 
-...
+Attach container.
+
+```
+# cd /app/functions
+# npm run build
+# firebase deploy
+```
