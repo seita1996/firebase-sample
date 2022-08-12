@@ -21,8 +21,8 @@ admin.initializeApp(functions.config().firebase);
 // GET /getRecord?docid=qwer
 export const getRecord = functions.region("asia-northeast1")
     .https.onRequest((request, response) => {
-      response.set("Access-Control-Allow-Origin", "http://localhost:5500");
-      // response.set("Access-Control-Allow-Origin", "https://fir-sample-seita-dev.web.app");
+      // response.set("Access-Control-Allow-Origin", "http://localhost:5500");
+      response.set("Access-Control-Allow-Origin", "https://fir-sample-seita-dev.web.app");
       response.set("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST");
       response.set("Access-Control-Allow-Headers", "Content-Type");
 
@@ -35,11 +35,11 @@ export const getRecord = functions.region("asia-northeast1")
       });
     });
 
-// POST /createRecord  body {text: "hogehoge" }
+// POST /createRecord  body { "text": "hogehoge" }
 export const createRecord = functions.region("asia-northeast1")
     .https.onRequest((request, response) => {
-      response.set("Access-Control-Allow-Origin", "http://localhost:5500");
-      // response.set("Access-Control-Allow-Origin", "https://fir-sample-seita-dev.web.app");
+      // response.set("Access-Control-Allow-Origin", "http://localhost:5500");
+      response.set("Access-Control-Allow-Origin", "https://fir-sample-seita-dev.web.app");
       response.set("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST");
       response.set("Access-Control-Allow-Headers", "Content-Type");
 
