@@ -19,26 +19,38 @@ admin.initializeApp(functions.config().firebase);
 // });
 
 // GET /getRecord?docid=qwer
-export const getRecord = functions.https.onRequest((request, response) => {
-  const docid = `${request.query.docid}`;
-  const ref = admin.firestore().collection("memo").doc(docid);
-  ref.get().then((snapshot) => {
-    response.json(snapshot);
-  }).catch((error) => {
-    response.status(500).send(error);
-  });
-});
+export const getRecord = functions.region("asia-northeast1")
+    .https.onRequest((request, response) => {
+      response.set("Access-Control-Allow-Origin", "http://localhost:5500");
+      // response.set("Access-Control-Allow-Origin", "https://fir-sample-seita-dev.web.app");
+      response.set("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST");
+      response.set("Access-Control-Allow-Headers", "Content-Type");
+
+      const docid = `${request.query.docid}`;
+      const ref = admin.firestore().collection("memo").doc(docid);
+      ref.get().then((snapshot) => {
+        response.json(snapshot);
+      }).catch((error) => {
+        response.status(500).send(error);
+      });
+    });
 
 // POST /createRecord  body {text: "hogehoge" }
-export const createRecord = functions.https.onRequest((request, response) => {
-  const data = `${request.body.toString()}`;
-  const ref = admin.firestore().collection("memo");
-  ref.add({data}).then((snapshot) => {
-    response.json({
-      id: snapshot.id,
-      data,
+export const createRecord = functions.region("asia-northeast1")
+    .https.onRequest((request, response) => {
+      response.set("Access-Control-Allow-Origin", "http://localhost:5500");
+      // response.set("Access-Control-Allow-Origin", "https://fir-sample-seita-dev.web.app");
+      response.set("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST");
+      response.set("Access-Control-Allow-Headers", "Content-Type");
+
+      const data = `${request.body.toString()}`;
+      const ref = admin.firestore().collection("memo");
+      ref.add({data}).then((snapshot) => {
+        response.json({
+          id: snapshot.id,
+          data,
+        });
+      }).catch((error) => {
+        response.status(500).send(error);
+      });
     });
-  }).catch((error) => {
-    response.status(500).send(error);
-  });
-});
